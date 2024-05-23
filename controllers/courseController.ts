@@ -1,15 +1,13 @@
 import { Request, Response } from 'express';
 import Course from '../models/Course'; // Corrected import statement
 
-
-
 export const addCommentToCourse = async (req: Request, res: Response): Promise<void> => {
   try {
     const courseId = req.params.id; // Assuming 'id' is the parameter for course _id
-    const { text, user } = req.body; // Assuming request body contains 'text' and 'user' for the comment
+    const { userId, reviewText,rating,createdOn } = req.body; // Assuming request body contains 'text' and 'user' for the comment
 
     // Find the course by its _id
-    const course = await Course.findById("6643d927b187c970c82ef9a2");
+    const course = await Course.findById("6645407865bf0138831d720a");
 
     if (!course) {
       res.status(404).json({ error: 'Course not found' });
@@ -17,34 +15,34 @@ export const addCommentToCourse = async (req: Request, res: Response): Promise<v
     }
 
     // Add the new comment to the course's comments array
-    course.comments.push({ text, user });
+    course.reviews.push({ userId, reviewText,rating,createdOn });
     await course.save();
 
     res.status(201).json(course); // Return the updated course object
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
 
 export const getAllCourses = async (req: Request, res: Response): Promise<void> => {
   try {
     const courses = await Course.find();
     res.status(200).json(courses);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
 export const addCourse = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id, name, description, price, comments } = req.body;
-
-    // Create a new course instance with comments
-    const course = new Course({ id, name, description, price, comments });
+    const courseData= req.body;
+    const course = new Course(courseData);
     await course.save();
     res.status(201).json(course);
   } catch (error) {
+    console.error(error);
     res.status(400).json({ error: 'Bad Request' });
   }
 };
@@ -52,7 +50,7 @@ export const addCourse = async (req: Request, res: Response): Promise<void> => {
 export const deleteCourse = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
-    const deletedCourse  = await Course.findByIdAndDelete(id);
+    const deletedCourse = await Course.findByIdAndDelete(id);
 
     if (deletedCourse) {
       res.status(200).json(deletedCourse);
@@ -60,7 +58,7 @@ export const deleteCourse = async (req: Request, res: Response): Promise<void> =
       res.status(404).json({ error: 'Course not found' });
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
@@ -68,11 +66,11 @@ export const deleteCourse = async (req: Request, res: Response): Promise<void> =
 export const updateCourse = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
-    const { name, description, price } = req.body;
+    const updates=req.body;
 
     const updatedCourse = await Course.findByIdAndUpdate(
       id,
-      { name, description, price },
+      updates,
       { new: true }
     );
 
@@ -82,6 +80,7 @@ export const updateCourse = async (req: Request, res: Response): Promise<void> =
       res.status(404).json({ error: 'Course not found' });
     }
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
@@ -103,6 +102,7 @@ export const partialUpdateCourse = async (req: Request, res: Response): Promise<
       res.status(404).json({ error: 'Course not found' });
     }
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
