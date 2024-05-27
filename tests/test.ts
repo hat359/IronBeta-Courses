@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { addCommentToCourse, getAllCourses, addCourse, deleteCourse, updateCourse, partialUpdateCourse } from '../controllers/courseController';
-import Course from '../models/Course';
+import Course from '../models/course';
 
 jest.mock('../models/Course');
 

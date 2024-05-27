@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Course from '../models/Course'; // Corrected import statement
+import Course from '../models/course'; 
 
 export const addCommentToCourse = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -19,6 +19,24 @@ export const addCommentToCourse = async (req: Request, res: Response): Promise<v
     await course.save();
 
     res.status(201).json(course); // Return the updated course object
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+export const getCourseByCode = async (req: Request, res: Response): Promise<void> => {
+  try {
+    console.log("course");
+    const { code } = req.params;
+    console.log(req.params);
+    const course = await Course.findOne({courseCode:code});
+    console.log(course);
+    
+    if (course) {
+      res.status(200).json(course);
+    } else {
+      res.status(404).json({ error: 'Course not found' });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

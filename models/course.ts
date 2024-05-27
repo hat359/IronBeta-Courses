@@ -19,7 +19,6 @@ const AttributesSchema = new Schema({
 
 // Define the review sub-schema
 const ReviewSchema = new Schema({
-  
   userId: { type: Schema.Types.ObjectId, required: true },
   reviewText: { type: String, required: true },
   rating: { type: Number, required: true },
@@ -28,14 +27,13 @@ const ReviewSchema = new Schema({
 
 // Define the FAQ sub-schema
 const FaqSchema = new Schema({
-  
   question: { type: String, required: true },
   answer: { type: String, required: true },
 });
 
 // Define the main course schema
 const CourseSchema: Schema = new Schema({
-  
+  courseCode: { type: String, required: true }, // Added courseCode field
   name: { type: String, required: true },
   description: { type: String, required: true },
   attributes: AttributesSchema,
@@ -48,7 +46,7 @@ const CourseSchema: Schema = new Schema({
 
 // Define ICourse interface
 interface ICourse extends Document {
-  
+  courseCode: string; // Added courseCode field
   name: string;
   description: string;
   attributes: {
@@ -66,14 +64,12 @@ interface ICourse extends Document {
     institution: string;
   };
   reviews: {
-    
     userId: mongoose.Types.ObjectId;
     reviewText: string;
     rating: number;
     createdOn: Date;
   }[];
   faqs: {
-    
     question: string;
     answer: string;
   }[];

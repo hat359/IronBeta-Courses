@@ -6,6 +6,6 @@
       "strict": true,
       "esModuleInterop": true
     },
-    "include": ["./**/*.ts","./tests/test.ts"],
+    "include": ["./**/*.ts","./tests/test.ts", "models/seed.js"],
     "exclude": ["node_modules"]
   }
