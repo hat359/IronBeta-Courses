@@ -4,9 +4,9 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import mongoSanitize from 'express-mongo-sanitize';
-import { config } from './config/config';
-import { errorHandler } from './middleware/errorMiddleware';
-import courseRouter from './routes/courseRoutes';
+import { config } from './src/config/config';
+import { errorHandler } from './src/middleware/errorMiddleware';
+import courseRouter from './src/routes/courseRoutes';
 
 const app: Express = express();
 

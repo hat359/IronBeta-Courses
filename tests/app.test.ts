@@ -1,8 +1,8 @@
 import request from 'supertest';
 import app from '../app';
 import mongoose from 'mongoose';
-import connectDB from '../models/db';
-import course from '../models/course';
+import connectDB from '../src/models/db';
+import course from '../src/models/course';
 
 beforeAll(async () => {
   await connectDB();

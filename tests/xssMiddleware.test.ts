@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import type { NextFunction, Request, Response } from 'express';
-import { xssMiddleware } from '../middleware/xssMiddleware';
+import { xssMiddleware } from '../src/middleware/xssMiddleware';
 import type { SanitizeOptions } from '../types/types';
 
 describe('xssMiddleware', () => {

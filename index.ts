@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import app from './app';
-import connectDB from './models/db'; // Import the connectDB function
-import { config } from './config/config';
+import connectDB from './src/models/db'; // Import the connectDB function
+import { config } from './src/config/config';
 
 dotenv.config();
 
