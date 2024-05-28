@@ -5,7 +5,6 @@ import mongoose from 'mongoose';
 
 
 const connectDB = async () => {
-  console.log("kuch to ", process.env.MONGODB_URI)
   try {
     const conn = await mongoose.connect(process.env.MONGODB_URI as string);
     console.log(`MongoDB Connected: ${conn.connection.host}`);

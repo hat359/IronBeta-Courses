@@ -3,6 +3,7 @@ import { getAllCourses,addCourse,deleteCourse,updateCourse,partialUpdateCourse,a
 
 const router = Router();
 
+
 router.get('/', getAllCourses);
 router.get('/code/:code',getCourseByCode);
 router.post('/add', addCourse);
