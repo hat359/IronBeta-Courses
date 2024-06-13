@@ -450,4 +450,3 @@ Partially updates an existing course by its ID.
 ### Summary
 
 This API provides a comprehensive set of endpoints for managing course data, including the ability to create, read, update, and delete courses, as well as to add comments and retrieve courses by specific criteria. Each endpoint is designed to handle various aspects of course management, ensuring that all necessary operations can be performed efficiently and effectively.
-![image](https://github.com/hat359/IronBeta-Courses/assets/48184672/b23b8a72-0f3c-46d4-a053-559cef19b30a)
