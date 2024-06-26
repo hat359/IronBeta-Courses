@@ -1,0 +1,176 @@
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FTP </title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">FTP Document Check Utility</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+  <div class="container mt-5">
+    <h2 class="mb-4">FTP Document Check Utility</h2>
+
+
+
+ 
+    <div class="card mb-4">
+      <div class="card-header">Database Details</div>
+      <div class="card-body">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="databaseHostIP">Database Host IP</label>
+              <input type="text" class="form-control" id="databaseHostIP" placeholder="Enter Database Host IP">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="port">Port</label>
+              <input type="text" class="form-control" id="port" placeholder="Enter Port">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="prodDatabaseName">Production Database Name</label>
+              <input type="text" class="form-control" id="prodDatabaseName" placeholder="Enter Production Database Name">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="stagingDatabaseName">Staging Database Name</label>
+              <input type="text" class="form-control" id="stagingDatabaseName" placeholder="Enter Staging Database Name">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="dbUsername">DB Username</label>
+              <input type="text" class="form-control" id="dbUsername" placeholder="Enter DB Username">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="dbPassword">DB Password</label>
+              <input type="password" class="form-control" id="dbPassword" placeholder="Enter DB Password">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+ 
+    <div class="card mb-4">
+      <div class="card-header">Project Details</div>
+      <div class="card-body">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="patientProjectID">Patient Project ID #</label>
+              <input type="text" class="form-control" id="patientProjectID" placeholder="Enter Patient Project ID">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="oldFileNames">Enter Old File Names (Comma separated)</label>
+              <input type="text" class="form-control" id="oldFileNames" placeholder="Enter Old File Names">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="card mb-4">
+      <div class="card-header">Practice Details</div>
+      <div class="card-body">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="apuid">APUID</label>
+              <input type="text" class="form-control" id="apuid" placeholder="Enter APUID">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="practiceName">Practice Name</label>
+              <input type="text" class="form-control" id="practiceName" placeholder="Enter Practice Name">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="card mb-4">
+      <div class="card-header">Drive Details</div>
+      <div class="card-body">
+        <form>
+          <div class="form-group">
+            <label>Drive Type</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="driveType" id="nonEcw" value="nonEcw" checked>
+              <label class="form-check-label" for="nonEcw">Non-ECW</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="driveType" id="ecwEcw" value="ecwEcw">
+              <label class="form-check-label" for="ecwEcw">ECW-ECW</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="driveType" id="nonAzure" value="nonAzure">
+              <label class="form-check-label" for="nonAzure">Non-Azure File Format</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="driveType" id="azure" value="azure">
+              <label class="form-check-label" for="azure">Azure File Format</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="programmerEmail">Programmer Email</label>
+            <input type="email" class="form-control" id="programmerEmail" placeholder="Enter Programmer Email">
+          </div>
+
+          <div class="form-group">
+            <label for="indexFile">Index File</label>
+            <input type="file" class="form-control-file" id="indexFile">
+          </div>
+        </form>
+      </div>
+    </div>
+
+ 
+    <button type="button" class="btn btn-primary">Start Document Check Process</button>
+
+    <div class="card mt-4">
+      <div class="card-header">Status</div>
+      <div class="card-body">
+        <textarea class="form-control" id="status" rows="5" placeholder="Status updates will appear here..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

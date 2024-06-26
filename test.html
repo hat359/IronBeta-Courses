@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FTP Document Check Utility</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="mb-4">FTP Document Check Utility</h2>
+    <form id="ftpForm">
+      <!-- Step 1: Database Details -->
+      <div id="step1">
+        <h4 class="mb-4">Step 1: Database Details</h4>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="databaseHostIP">Database Host IP</label>
+            <input type="text" class="form-control" id="databaseHostIP" placeholder="Enter Database Host IP" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="port">Port</label>
+            <input type="text" class="form-control" id="port" placeholder="Enter Port" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="prodDatabaseName">Production Database Name</label>
+            <input type="text" class="form-control" id="prodDatabaseName" placeholder="Enter Production Database Name" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="stagingDatabaseName">Staging Database Name</label>
+            <input type="text" class="form-control" id="stagingDatabaseName" placeholder="Enter Staging Database Name" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="dbUsername">DB Username</label>
+            <input type="text" class="form-control" id="dbUsername" placeholder="Enter DB Username" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="dbPassword">DB Password</label>
+            <input type="password" class="form-control" id="dbPassword" placeholder="Enter DB Password" required>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="nextStep(2)">Connect to Database</button>
+      </div>
+
+      <!-- Step 2: Project and Practice Details -->
+      <div id="step2" style="display:none;">
+        <h4 class="mb-4">Step 2: Project and Practice Details</h4>
+        <h5>Project Details</h5>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="patientProjectID">Patient Project ID #</label>
+            <input type="text" class="form-control" id="patientProjectID" placeholder="Enter Patient Project ID" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="oldFileNames">Enter Old File Names (Comma separated)</label>
+            <input type="text" class="form-control" id="oldFileNames" placeholder="Enter Old File Names" required>
+          </div>
+        </div>
+        <h5>Practice Details</h5>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="apuid">APUID</label>
+            <input type="text" class="form-control" id="apuid" placeholder="Enter APUID" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="practiceName">Practice Name</label>
+            <input type="text" class="form-control" id="practiceName" placeholder="Enter Practice Name" required>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next</button>
+      </div>
+
+      <!-- Step 3: Drive Details -->
+      <div id="step3" style="display:none;">
+        <h4 class="mb-4">Step 3: Drive Details</h4>
+        <div class="form-group">
+          <label>Drive Type</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="driveType" id="nonEcw" value="nonEcw" onclick="showFileFormatOptions()" required>
+            <label class="form-check-label" for="nonEcw">Non-ECW</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="driveType" id="ecwEcw" value="ecwEcw" onclick="showFileFormatOptions()" required>
+            <label class="form-check-label" for="ecwEcw">ECW-ECW</label>
+          </div>
+        </div>
+        <div id="fileFormatOptions" style="display:none;">
+          <div class="form-group">
+            <label>File Format</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="fileFormat" id="nonAzure" value="nonAzure" required>
+              <label class="form-check-label" for="nonAzure">Non-Azure File Format</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="fileFormat" id="azure" value="azure" required>
+              <label class="form-check-label" for="azure">Azure File Format</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="programmerEmail">Programmer Email</label>
+          <input type="email" class="form-control" id="programmerEmail" placeholder="Enter Programmer Email" required>
+        </div>
+        <div class="form-group">
+          <label for="indexFile">Index File</label>
+          <input type="file" class="form-control-file" id="indexFile" required>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="showSummary()">Start Document Check Process</button>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="summaryModal" tabindex="-1" aria-labelledby="summaryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="summaryModalLabel">Summary</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p><strong>Database Host IP:</strong> <span id="summaryDatabaseHostIP"></span></p>
+              <p><strong>Port:</strong> <span id="summaryPort"></span></p>
+              <p><strong>Production Database Name:</strong> <span id="summaryProdDatabaseName"></span></p>
+              <p><strong>Staging Database Name:</strong> <span id="summaryStagingDatabaseName"></span></p>
+              <p><strong>DB Username:</strong> <span id="summaryDbUsername"></span></p>
+              <p><strong>Patient Project ID:</strong> <span id="summaryPatientProjectID"></span></p>
+              <p><strong>Old File Names:</strong> <span id="summaryOldFileNames"></span></p>
+              <p><strong>APUID:</strong> <span id="summaryApuid"></span></p>
+              <p><strong>Practice Name:</strong> <span id="summaryPracticeName"></span></p>
+              <p><strong>Drive Type:</strong> <span id="summaryDriveType"></span></p>
+              <p><strong>File Format:</strong> <span id="summaryFileFormat"></span></p>
+              <p><strong>Programmer Email:</strong> <span id="summaryProgrammerEmail"></span></p>
+              <p><strong>Index File:</strong> <span id="summaryIndexFile"></span></p>
+              <h5>Status</h5>
+              <div class="form-group">
+                <textarea class="form-control" id="status" rows="5" placeholder="Status updates will appear here..." readonly></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Start Process</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function nextStep(step) {
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById('step' + i).style.display = 'none';
+      }
+      document.getElementById('step' + step).style.display = 'block';
+    }
+
+    function showFileFormatOptions() {
+      document.getElementById('fileFormatOptions').style.display = 'block';
+    }
+
+    function showSummary() {
+      document.getElementById('summaryDatabaseHostIP').innerText = document.getElementById('databaseHostIP').value;
+      document.getElementById('summaryPort').innerText = document.getElementById('port').value;
+      document.getElementById('summaryProdDatabaseName').innerText = document.getElementById('prodDatabaseName').value;
+      document.getElementById('summaryStagingDatabaseName').innerText = document.getElementById('stagingDatabaseName').value;
+      document.getElementById('summaryDbUsername').innerText = document.getElementById('dbUsername').value;
+      document.getElementById('summaryPatientProjectID').innerText = document.getElementById('patientProjectID').value;
+      document.getElementById('summaryOldFileNames').innerText = document.getElementById('oldFileNames').value;
+      document.getElementById('summaryApuid').innerText = document.getElementById('apuid').value;
+      document.getElementById('summaryPracticeName').innerText = document.getElementById('practiceName').value;
+      document.getElementById('summaryDriveType').innerText = document.querySelector('input[name="driveType"]:checked').nextElementSibling.innerText;
+      document.getElementById('summaryFileFormat').innerText = document.querySelector('input[name="fileFormat"]:checked').nextElementSibling.innerText;
+      document.getElementById('summaryProgrammerEmail').innerText = document.getElementById('programmerEmail').value;
+      document.getElementById('summaryIndexFile').innerText = document.getElementById('indexFile').value.split('\\').pop();
+
+      $('#summaryModal').modal('show');
+    }
+  </script>
+</body>
+</html>

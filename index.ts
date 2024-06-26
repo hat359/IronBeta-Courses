@@ -51,7 +51,7 @@ connectDB().then(() => {
     app.use(errorHandler);
 
     // Start the server
-    const PORT = config.port || 3000;
+    const PORT = config.port || 8080;
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
     });

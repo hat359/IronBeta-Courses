@@ -31,15 +31,26 @@ const FaqSchema = new Schema({
   answer: { type: String, required: true },
 });
 
+// Define the question and answer sub-schema
+const QuestionAnswerSchema = new Schema({
+  userId: { type: Schema.Types.ObjectId, required: true },
+  questionText: { type: String, required: true },
+  answerText: { type: String },
+  createdOn: { type: Date, default: Date.now },
+  answeredOn: { type: Date },
+});
+
 // Define the main course schema
 const CourseSchema: Schema = new Schema({
   courseCode: { type: String, required: true }, // Added courseCode field
   name: { type: String, required: true },
-  description: { type: String, required: true },
+  description: { type: String },
+  detailedDescription: { type: String }, // Added detailedDescription field
   attributes: AttributesSchema,
   reviews: [ReviewSchema],
   faqs: [FaqSchema],
-  expiryDate: { type: Date, required: true },
+  questionsAndAnswers: [QuestionAnswerSchema], // Added questions and answers field
+  expiryDate: { type: Date },
   createdOn: { type: Date, default: Date.now },
   updatedOn: { type: Date, default: Date.now },
 });
@@ -49,6 +60,7 @@ interface ICourse extends Document {
   courseCode: string; // Added courseCode field
   name: string;
   description: string;
+  detailedDescription: string; // Added detailedDescription field
   attributes: {
     availableCredits: number;
     courseLevel: string;
@@ -72,6 +84,13 @@ interface ICourse extends Document {
   faqs: {
     question: string;
     answer: string;
+  }[];
+  questionsAndAnswers: {
+    userId: mongoose.Types.ObjectId;
+    questionText: string;
+    answerText?: string; // Optional answerText
+    createdOn: Date;
+    answeredOn?: Date; // Optional answeredOn
   }[];
   expiryDate: Date;
   createdOn: Date;
